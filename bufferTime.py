@@ -13,31 +13,27 @@ records = mycursor.fetchall()
 for x in records:
     punchInTime = x[2]
     print("punchInTime: ", punchInTime)
-
 punchInTimeInMinutes = punchInTime.total_seconds()/60
 print("Punch in time in minutes: ", punchInTimeInMinutes)
 
 #Assign the default college timings and converting it into minutes
-
 default_College_Time = timedelta(hours = 8, minutes = 45, seconds = 00)
 print("Actual college time is:", default_College_Time)
 default_College_Time_min = default_College_Time.total_seconds()/60
 print("College time in minutes:", default_College_Time_min)
 
 #Assign the default buffer timings and converting it into minutes
-
 default_buffer_Time = timedelta(hours = 2, minutes = 00, seconds = 00)
 print("Provided buffer time is:", default_buffer_Time)
-default_buffer_Time_min = default_buffer_Time.total_seconds()/60
-print("Buffer time in minutes: ", default_buffer_Time_min)
+for x in records:
+    default_buffer_Time_min = x[3]
+    print("Buffer Time is: ", default_buffer_Time)
 
 #Calculate the time difference to update the buffer
-
 TimeDifference = punchInTimeInMinutes-default_College_Time_min
 print("The time difference in minutes :", TimeDifference)
 
 #update function called whenever remanining buffer has to be updated
-
 def update_buffer():
     updateBufferQuery = "Update employeeDetails set BufferTime =%s where empID=%s"
     mycursor.execute(updateBufferQuery, (RemainingBufferTime, empID,))
@@ -51,7 +47,6 @@ def update_buffer():
 
 
 #case1 when the employee is on time or before time / TimeDifference <=0
-
 if(TimeDifference <= 0):
     print("Thank you !! Have a nice day.")
     updateBufferQuery="Update employeeDetails set BufferTime =%s where empID=%s"
@@ -64,13 +59,11 @@ if(TimeDifference <= 0):
         BufferTime = x[3]
         print("Buffer time remaining is : ", BufferTime)
 #case2 when the employee is little late or before time / TimeDifference <= 120
-
 elif(TimeDifference <= default_buffer_Time_min):
     RemainingBufferTime = default_buffer_Time_min - TimeDifference
     update_buffer()
 
 #case3 when the employee has arrived after 120 minutes of buffer  / TimeDifference > 120
-
 elif(TimeDifference >= default_buffer_Time_min):
     RemainingBufferTime = 0
     update_buffer()
