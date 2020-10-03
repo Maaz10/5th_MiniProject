@@ -67,5 +67,6 @@ elif(TimeDifference <= default_buffer_Time_min):
 elif(TimeDifference >= default_buffer_Time_min):
     RemainingBufferTime = 0
     update_buffer()
+    #here we should call  cl function to deduct CL if there
 
 
