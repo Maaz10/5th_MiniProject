@@ -38,9 +38,8 @@ if __name__ == "__main__":
                 sql = ("Update details set Noofcl =%s where ssn=%s")
                 mycursor.execute(sql, (cl, employeeID,))
                 print("           remaining CL is :",cl)
-            
-            else:
 
+            else:
                 #Deduct Salary after Cl becomes 0 and Refresh Cl
                 print("           No cl left in the account\n           Salary deducted\n\n")
                 sal = x[-1]
