@@ -54,7 +54,6 @@ for x in records:
                 sal-=1
                 sql = ("Update details set salary_decrease =%s where ssn=%s")
                 mycursor.execute(sql, (sal, empID,))
-                cl=15
                 sql = ("Update details set Noofcl =%s where ssn=%s")
                 mycursor.execute(sql, (cl, empID,))
                 mydb.commit()
